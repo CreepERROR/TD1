@@ -1,0 +1,20 @@
+version: '3'
+networks:
+  bdorm.net:
+    driver: bridge
+services:
+  bdorm.db:
+    image: 'mariadb:latest'
+    command: '--default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci'
+    env_file: conf/db.env
+    ports:
+      - '3307:3306'
+    networks:
+      - bdorm.net
+
+  adminer:
+    image: adminer
+    ports:
+      - '8080:8080'
+    networks:
+      - bdorm.net
